@@ -3,18 +3,37 @@ input.onButtonPressed(Button.A, function () {
     bläddra()
 })
 input.onButtonPressed(Button.AB, function () {
-    radio.sendValue("Player1 game1", Player1)
+    radio.sendValue("Player1 game1", vapen)
+})
+radio.onReceivedString(function (receivedString) {
+    if (receivedString == "SSP") {
+        game.startCountdown(3000)
+        vapen = 1
+        basic.showLeds(`
+            . . . . .
+            . # # # .
+            . # # # .
+            . # # # .
+            . . . . .
+            `)
+    } else if (receivedString == "tärning") {
+        while (false) {
+            if (input.buttonIsPressed(Button.A)) {
+            	
+            } else if (input.buttonIsPressed(Button.B)) {
+            	
+            } else if (input.buttonIsPressed(Button.AB)) {
+            	
+            }
+        }
+    }
 })
 input.onButtonPressed(Button.B, function () {
     Knapp_B()
     bläddra()
 })
-radio.onReceivedValue(function (name, value) {
-    let resultat1 = 0
-    Player1 = resultat1
-})
 function bläddra () {
-    if (Player1 == 1) {
+    if (vapen == 1) {
         basic.showLeds(`
             . . . . .
             . # # # .
@@ -23,7 +42,7 @@ function bläddra () {
             . . . . .
             `)
     } else {
-        if (Player1 == 2) {
+        if (vapen == 2) {
             basic.showIcon(IconNames.Scissors)
         } else {
             basic.showIcon(IconNames.Square)
@@ -31,29 +50,23 @@ function bläddra () {
     }
 }
 function Knapp_B () {
-    if (Player1 < 3) {
-        Player1 += 1
+    if (vapen < 3) {
+        vapen += 1
     } else {
-        Player1 = 1
+        vapen = 1
     }
+    return 0
 }
 function Knapp_A () {
-    if (Player1 > 1) {
-        Player1 += -1
+    if (vapen > 1) {
+        vapen += -1
     } else {
-        Player1 = 3
+        vapen = 3
     }
+    return 0
 }
-let Player1 = 0
-Player1 = 1
+let vapen = 0
 radio.setGroup(1)
-basic.showLeds(`
-    . . . . .
-    . # # # .
-    . # # # .
-    . # # # .
-    . . . . .
-    `)
 basic.forever(function () {
 	
 })
